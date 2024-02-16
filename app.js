@@ -35,11 +35,11 @@ import ReactDOM from "react-dom/client";
       
       return (
         <div className="body">
-          <RestaurantCard restaurant={restaurantList[0]} />
-          <RestaurantCard restaurant={restaurantList[1]} />
-          <RestaurantCard restaurant={restaurantList[2]}/>
-          <RestaurantCard restaurant={restaurantList[3]} />
-          <RestaurantCard restaurant={restaurantList[4]} />
+          <RestaurantCard {...restaurantList[0].info} />
+          <RestaurantCard {...restaurantList[1].info} />
+          <RestaurantCard {...restaurantList[2].info} />
+          <RestaurantCard {...restaurantList[3].info} />
+          <RestaurantCard {...restaurantList[4].info} />
           <RestaurantCard restaurant={restaurantList[5]} />
      
         </div>
@@ -947,7 +947,7 @@ import ReactDOM from "react-dom/client";
       description:["Burgers","American"]
     }
 
- const RestaurantCard = (props) => {
+ const RestaurantCard = (name,cuisines,avgRating) => {
    return (
 
 
@@ -955,8 +955,8 @@ import ReactDOM from "react-dom/client";
        <img
          src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${props.restaurant.info?.cloudinaryImageId}`}
        />
-       <h2>{props.restaurant.info?.name}</h2>
-       <h3>{props.restaurant.info?.cuisines.join(',')}</h3>
+       <h2>{name}</h2>
+       <h3>{cuisines.join(',')}</h3>
        <h4>{props.restaurant.info?.avgRating} stars</h4>
      </div>
    );
