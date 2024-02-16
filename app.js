@@ -35,12 +35,18 @@ import ReactDOM from "react-dom/client";
       
       return (
         <div className="body">
-          <RestaurantCard {...restaurantList[0].info} />
-          <RestaurantCard {...restaurantList[1].info} />
-          <RestaurantCard {...restaurantList[2].info} />
-          <RestaurantCard {...restaurantList[3].info} />
-          <RestaurantCard {...restaurantList[4].info} />
-          <RestaurantCard restaurant={restaurantList[5]} />
+
+          {/* <RestaurantCard {...restaurantList[0].info} /> */}
+     
+          {
+          restaurantList.map((restaurant)=>{
+
+            return (
+              <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
+            );
+
+          })
+          }
      
         </div>
       );
@@ -947,17 +953,17 @@ import ReactDOM from "react-dom/client";
       description:["Burgers","American"]
     }
 
- const RestaurantCard = (name,cuisines,avgRating) => {
+ const RestaurantCard = ({name, cuisines, avgRating, cloudinaryImageId}) => {
    return (
-
-
      <div className="card">
        <img
-         src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${props.restaurant.info?.cloudinaryImageId}`}
+         src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
        />
        <h2>{name}</h2>
        <h3>{cuisines.join(',')}</h3>
-       <h4>{props.restaurant.info?.avgRating} stars</h4>
+       <h4>{avgRating} stars</h4>
+
+       {/* <h4>{props.restaurant.info?.avgRating} stars</h4> */}
      </div>
    );
  };
