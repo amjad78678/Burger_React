@@ -28,7 +28,7 @@
     margin-left: 10px;
 }
 .card{
-    width: 300px;
+    width: 270px;
     border: 1px solid black;
     padding: 10px;
     margin: 10px;
@@ -36,8 +36,8 @@
 .card>img{
     width: 100%;
 }
-.body{
+.restaurant-list{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+  
 }
