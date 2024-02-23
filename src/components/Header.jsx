@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
     const Title = () => (
       <a href="/">
@@ -18,31 +18,31 @@ import { useState } from "react";
 
 const Header = () => {
 
-
-  const isLoggedIn=()=>{
-
-  //some api call to get the if logged In user
-
-     return true
-  }
-
   const [isLogged,setIsLogged]=useState(false)
-
+ 
   return (
     <div className="header">
       <Title />
 
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Cart</li>
+          <li>
+            <Link to="/">Home</Link>{' '}
+          </li>
+          <li>
+            <Link to="/aboutUs">About</Link>{' '}
+          </li>
+          <li>
+            <Link to="contactUs">Contact</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart</Link>{' '}
+          </li>
         </ul>
       </div>
 
       {isLogged ? (
-        <button onClick={()=>setIsLogged(false)}>Login</button>
+        <button onClick={() => setIsLogged(false)}>Login</button>
       ) : (
         <button onClick={() => setIsLogged(true)}>Logout</button>
       )}

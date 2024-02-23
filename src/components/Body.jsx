@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { restaurantList } from "../config";
 import RestaurantCard from "./RestaurantCard";
 import ShimmerUi from "./ShimmerUi";
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -12,7 +12,9 @@ const Body = () => {
   console.log('render()')
 
 
-    function filterData(searchText, restaurants) {
+    function filterData(searchText,allRestaurants) {
+
+      console.log('in filterdata block')
       let filterData = allRestaurants.filter((restaurant) =>
         restaurant?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
       );
@@ -38,11 +40,11 @@ const Body = () => {
     console.log('iam json data', jsonData);
 
 //Optional chaining for good practice
-    setAllRestaurants(jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    setFilteredRestaurants(jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setAllRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
   }
-
+   
 
 useEffect(() => { 
   getRestaurantList();
@@ -76,7 +78,7 @@ if(!allRestaurants) return null;
           onClick={() => {
             //need to filter data
 
-            const data = filterData(searchText, setAllRestaurants);
+            const data = filterData(searchText,allRestaurants);
 
             //update the state restaurants
 
@@ -96,7 +98,12 @@ if(!allRestaurants) return null;
           {/* <RestaurantCard {...restaurantList[0].info} /> */}
           {filteredRestaurants.map((restaurant) => {
             return (
-              <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
+              <Link
+                key={restaurant.info.id}
+                  to={`/restaurant/${restaurant.info.id}`}
+              >
+                <RestaurantCard {...restaurant.info} />
+              </Link>
             );
           })}
         </div>
