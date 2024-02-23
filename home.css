@@ -52,3 +52,11 @@
 .title{
     text-align: center;
 }
+.details{
+    display: flex;
+    
+}
+.recommend{
+ 
+   margin-left: 50px;
+}

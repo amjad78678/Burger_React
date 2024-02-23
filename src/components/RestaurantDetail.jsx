@@ -28,7 +28,7 @@ const RestaurantDetail=()=>{
       const dataJson = await data.json();
       console.log('JSON data:', dataJson);
       const menuData =  
-        dataJson.data.cards[2].card.card.info
+        dataJson.data
       setRestaurant(menuData);
     } catch (error) {
       console.error('Error fetching restaurant details:', error);
@@ -47,23 +47,45 @@ const RestaurantDetail=()=>{
     <ShimmerUi />
   ) : (
     <div className="details">
-      <h1 className="title">Title : {restaurant.name}</h1>
       <br />
       <br />
-      <h3>Recommended 👇</h3>
-    
-      <div key={restaurant.id} className="restaurant-detail">
+
+      <div
+        key={restaurant.cards[2].card.card.info.id}
+        className="restaurant-detail"
+      >
         <div className="restaurant-image">
-          <img src={IMG_CDN_URL + restaurant.cloudinaryImageId} alt="" />
+          <img
+            src={
+              IMG_CDN_URL + restaurant.cards[2].card.card.info.cloudinaryImageId
+            }
+            alt=""
+          />
         </div>
         <div className="restaurant-name">
-          <h1>{restaurant.name}</h1>
+          <h1>{restaurant.cards[2].card.card.info.name}</h1>
         </div>
         <div className="restaurant-description">
-          <p>{restaurant.city}</p>
+          <h2>Price : {restaurant.cards[2].card.card.info.costForTwo} </h2>
+          <h2>Place : {restaurant.cards[2].card.card.info.city}</h2>
+          <h3> Rating : {restaurant.cards[2].card.card.info.avgRating}</h3>
         </div>
       </div>
 
+      <div className="recommend">
+        {' '}
+        <h2>Recommended 👇</h2>
+        {restaurant.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card.itemCards.map(
+          (rest) => {
+            return (
+              <>
+                <li>{rest.card.info.name}</li>
+                <br />
+              </>
+            );
+          },
+        )}
+      </div>
     </div>
   );
 }
