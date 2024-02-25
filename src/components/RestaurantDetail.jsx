@@ -1,9 +1,11 @@
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import React from "react";
 
 import { IMG_CDN_URL } from "../config";
 import ShimmerUi from './ShimmerUi.jsx';
+import useRestaurant from "../utils/useRestaurant.jsx";
 
 
 
@@ -12,34 +14,13 @@ import ShimmerUi from './ShimmerUi.jsx';
 
 const RestaurantDetail=()=>{
 
-    const params = useParams();
-
-  const [restaurant, setRestaurant] = useState(null);
-
-  useEffect(() => {
-    detailFood();
-  }, []); // Run once when component mounts
-
-  async function detailFood() {
-    try {
-      const data = await fetch(
-        `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=9.9312328&lng=76.26730409999999&restaurantId=${params.id}&catalog_qa=undefined&submitAction=ENTER`,
-      );
-      const dataJson = await data.json();
-      console.log('JSON data:', dataJson);
-      const menuData =  
-        dataJson.data
-      setRestaurant(menuData);
-    } catch (error) {
-      console.error('Error fetching restaurant details:', error);
-    }
-  }
-
-  console.log('Restaurant:', restaurant);
-    console.log('Restaurant:', typeof(restaurant));
+   const {resId} = useParams();
 
 
+   const restaurant = useRestaurant(resId)
 
+
+console.log('restaurant',restaurant)
   // //avoid rendering undefined component
   // if (!restaurant) return null;
 
@@ -55,7 +36,7 @@ const RestaurantDetail=()=>{
         className="restaurant-detail"
       >
         <div className="restaurant-image">
-          <img
+          <img className="detail-image"
             src={
               IMG_CDN_URL + restaurant.cards[2].card.card.info.cloudinaryImageId
             }
@@ -73,15 +54,14 @@ const RestaurantDetail=()=>{
       </div>
 
       <div className="recommend">
-        {' '}
         <h2>Recommended 👇</h2>
-        {restaurant.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card.itemCards.map(
-          (rest) => {
+        {restaurant?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards?.map(
+          (rest,index) => {
             return (
-              <>
-                <li>{rest.card.info.name}</li>
+              <React.Fragment key={rest.card.info.id}>
+                <li >{rest.card.info.name}</li>
                 <br />
-              </>
+              </React.Fragment>
             );
           },
         )}

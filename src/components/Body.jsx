@@ -4,6 +4,7 @@ import { restaurantList } from "../config";
 import RestaurantCard from "./RestaurantCard";
 import ShimmerUi from "./ShimmerUi";
 import { Link } from 'react-router-dom';
+import useIsOnline from '../utils/useIsOnline';
 
 
 
@@ -49,6 +50,11 @@ const Body = () => {
 useEffect(() => { 
   getRestaurantList();
 }, []);
+
+const isOnline=useIsOnline()
+if(!isOnline){
+  return <h1 style={{textAlign:'center',color:'red',fontSize:'3rem'}}>🤕Please check your internet connection !!!</h1>
+}
 
 
 //avoid rendering undefined component

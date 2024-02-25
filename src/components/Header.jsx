@@ -38,13 +38,20 @@ const Header = () => {
           <li>
             <Link to="/cart">Cart</Link>{' '}
           </li>
+          <li>
+            <Link to="/instamart">Instamart</Link>{' '}
+          </li>
         </ul>
       </div>
 
       {isLogged ? (
-        <button onClick={() => setIsLogged(false)}>Login</button>
+        <button onClick={() => setIsLogged(false)}>
+          <Link to="/login">Login</Link>{' '}
+        </button>
       ) : (
-        <button onClick={() => setIsLogged(true)}>Logout</button>
+        <button onClick={() => setIsLogged(true)}>
+          <Link to="/logout">Logout</Link>
+        </button>
       )}
     </div>
   );

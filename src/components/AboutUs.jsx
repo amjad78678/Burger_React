@@ -1,4 +1,4 @@
-
+import { Outlet } from "react-router-dom";
 
 
 const AboutUs=()=>{
@@ -10,9 +10,8 @@ const AboutUs=()=>{
 
 <p>This is mohammed amjadali from omanoor</p>
 
-
-
-        </div>
+   <Outlet/>
+ </div>
      )
 }
 
