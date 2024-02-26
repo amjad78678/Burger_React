@@ -14,4 +14,25 @@ const RestaurantCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
 };
 
 
+//need an higher order function to whether restaurant is veg or not
+
+//input restaurantCard ==> restaurantCard+vegan Label
+
+export const withPromotedLabel=(RestaurantCard)=>{
+
+  return (props)=>{ 
+
+    console.log("withPromotedLabel", props);
+
+    return (
+  <div>
+    <label className='absolute bg-black text-white rounded-2xl px-4 py-2 ms-3 mt-1' htmlFor="">Vegan🥗</label>
+      <RestaurantCard {...props}/>
+  </div>
+
+    )
+  }
+}
+
+
 export default RestaurantCard;
