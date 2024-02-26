@@ -15,19 +15,24 @@ const Body = () => {
 
     function filterData(searchText,allRestaurants) {
 
-      console.log('in filterdata block')
-      let filterData = allRestaurants.filter((restaurant) =>
-        restaurant?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
-      );
+      console.log('iam search tesxt',searchText)
+      if(searchText==''){
+        return allRestaurants;
+      }else{
+  console.log('in filterdata block');
+  let filterData = allRestaurants.filter((restaurant) =>
+    restaurant?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
+  );
 
-      return filterData;
+  return filterData;
+      }
     }
 
 
   
   // let searchText='KFC'
   const [allRestaurants,setAllRestaurants]=useState([])
-  const [searchText,setSearchText]=useState()
+  const [searchText,setSearchText]=useState('')
   const [filteredRestaurants,setFilteredRestaurants] = useState([])
 
 
@@ -68,10 +73,10 @@ if(!allRestaurants) return null;
     <ShimmerUi />
   ) : ( 
     <>
-      <div className="search-container">
+      <div className="search-container p-5 bg-pink-50 my-2 ">
         <input
           type="text"
-          className="search-input"
+          className="focus:bg-neutral-50 m-2 p-2"
           placeholder="Search"
           value={searchText}
           onChange={(e) => {
@@ -80,10 +85,10 @@ if(!allRestaurants) return null;
         />
 
         <button
-          className="search-button"
+          className="mx-3 p-2 rounded-lg bg-purple-900 hover:bg-purple-800 text-white"
           onClick={() => {
             //need to filter data
-
+ 
             const data = filterData(searchText,allRestaurants);
 
             //update the state restaurants
@@ -100,7 +105,7 @@ if(!allRestaurants) return null;
           <h1>No restaurant match your filter!!</h1>
         </>
       ) : (
-        <div className="restaurant-list">
+        <div className="flex flex-wrap space-x-3">
           {/* <RestaurantCard {...restaurantList[0].info} /> */}
           {filteredRestaurants.map((restaurant) => {
             return (
