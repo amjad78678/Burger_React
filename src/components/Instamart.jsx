@@ -9,7 +9,7 @@ const Section=({title,description,isVisible,setIsVisible})=>{
 
       {isVisible ? (
         <button
-          onClick={() => setIsVisible(false)}
+          onClick={() => setIsVisible()}
           className="bg-red-200 mb-2 rounded-lg px-5 py-2"
         >
           Hide
@@ -34,55 +34,47 @@ const Section=({title,description,isVisible,setIsVisible})=>{
 const Instamart = () => {
 
 
-  const [sectionConfig,setSectionConfig] =useState({
-    showAbout:true,
-    showContact:false,
-    showCareer:false,
-  })
+  const [visibleSection, setVisibleSection] = useState(null);
 
 
   return (
     <div>
-
-
-  
       <Section
         title={'aboutUs'}
         description={`
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum minus dolorem totam, rerum placeat aspernatur facilis dolores non ullam ut cum accusantium quibusdam iusto dignissimos et dolore eius doloribus ea.
-      `} isVisible={sectionConfig.showAbout} setIsVisible={()=>{
-        setSectionConfig({
-          showAbout:true,
-          showContact:false,
-          showCareer:false,
-        })
-      }}
+      `}
+        isVisible={visibleSection == 'about'}
+        setIsVisible={() => {
+          setVisibleSection((prevVisibleSection) =>
+            prevVisibleSection == 'about' ? null : 'about',
+          );
+        }}
       />
       <Section
         title={'Conract us'}
         description={`
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum minus dolorem totam, rerum placeat aspernatur facilis dolores non ullam ut cum accusantium quibusdam iusto dignissimos et dolore eius doloribus ea.
-      `} isVisible={sectionConfig.showContact} setIsVisible={()=>{
-        setSectionConfig({
-          showAbout:false,
-          showContact:true,
-          showCareer:false,
-        })
-      }}
+      `}
+        isVisible={visibleSection == 'contact'}
+        setIsVisible={() => {
+          setVisibleSection((prevVisibleSection) =>
+            prevVisibleSection == 'contact' ? null : 'contact',
+          );
+        }}
       />
       <Section
         title={'Career instamart'}
         description={`
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum minus dolorem totam, rerum placeat aspernatur facilis dolores non ullam ut cum accusantium quibusdam iusto dignissimos et dolore eius doloribus ea.
-      `} isVisible={sectionConfig.showCareer} setIsVisible={()=>{
-        setSectionConfig({
-          showAbout:false,
-          showContact:false,
-          showCareer:true,
-        })
-      }}
+      `}
+        isVisible={visibleSection == 'career'}
+        setIsVisible={() => {
+          setVisibleSection((prevVisibleSection) =>
+            prevVisibleSection == 'career' ? null : 'career',
+          );
+        }}
       />
-
     </div>
   );
 }
