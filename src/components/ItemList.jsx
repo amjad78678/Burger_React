@@ -27,17 +27,15 @@ console.log('itemlist',items)
                     </div>
                   </div>
 
-                  <div className="w-2/12 p-2">
-                    <div className="absolute">
-                      <button className="ms-2 mt-16 mb-auto py-2 px-6 text-green-600 bg-white font-semibold rounded-lg shadow-lg">
-                        ADD
-                      </button>
-                    </div>
+                  <div className="w-2/12 p-2 relative">
                     <img
                       className="rounded-xl"
                       src={IMG_CDN_URL + item.card.info.imageId}
                       alt=""
                     />
+                    <button className="absolute bottom-2 left-2 ms-2 py-2 px-6 text-green-600 bg-white font-semibold rounded-lg shadow-lg">
+                      ADD
+                    </button>
                   </div>
                 </div>
               );

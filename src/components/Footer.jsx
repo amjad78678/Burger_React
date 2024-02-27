@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="p-5 bg-black text-white mt-2">
+    <div className="p-5 bg-black border border-black text-white mt-2">
       <div className="container mx-auto">
         <div className="mx-auto ps-40">
           <a href="/">

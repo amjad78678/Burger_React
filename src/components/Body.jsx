@@ -81,36 +81,46 @@ if(!allRestaurants) return null;
 
   return allRestaurants.length === 0 ? (
     <ShimmerUi />
-  ) : ( 
+  ) : (
     <>
-      <div className="search-container p-5 bg-pink-50 my-2">
-        <input
-          type="text"
-          className="focus:bg-neutral-50 m-2 p-2"
-          placeholder="Search"
-          value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-        />
+      <div className="search-container p-5 bg-pink-50 my-2 flex justify-between">
+        <div>
+          <input
+            type="text"
+            className="focus:bg-neutral-50 m-2 p-2"
+            placeholder="Search"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
 
-        <button
-          className="mx-3 p-2 rounded-lg bg-purple-900 hover:bg-purple-800 text-white"
-          onClick={() => {
-            //need to filter data
- 
-            const data = filterData(searchText,allRestaurants);
+          <button
+            className="mx-3 p-2 rounded-lg bg-purple-900 hover:bg-purple-800 text-white"
+            onClick={() => {
+              //need to filter data
 
-            //update the state restaurants
+              const data = filterData(searchText, allRestaurants);
 
-            setFilteredRestaurants(data);
-          }}
-        >
-          Search
-        </button>
+              //update the state restaurants
+
+              setFilteredRestaurants(data);
+            }}
+          >
+            Search
+          </button>
+        </div>
 
         <div>
-          <input className='border border-black my-10' type="text" value={loggedInUser} onChange={(e)=>setUserName(e.target.value)} />
+          <span>
+            Username : 
+            <input
+              className="border border-black ms-2 mt-4"
+              type="text"
+              value={loggedInUser}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </span>
         </div>
       </div>
 
@@ -128,7 +138,7 @@ if(!allRestaurants) return null;
                 to={`/restaurant/${restaurant.info.id}`}
               >
                 {restaurant.info.veg ? (
-                  <RestaurantCardPromoted {...restaurant.info}/>
+                  <RestaurantCardPromoted {...restaurant.info} />
                 ) : (
                   <RestaurantCard {...restaurant.info} />
                 )}

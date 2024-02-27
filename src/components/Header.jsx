@@ -59,7 +59,7 @@ const Header = () => {
         </button>
       ) : (
         <button className="p-5" onClick={() => setIsLogged(true)}>
-          Logout
+          Login
         </button>
       )}
     </div>
