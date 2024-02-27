@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
 import ItemList from './ItemList';
 
-const RestaurantCategory = ({data}) => {
+const RestaurantCategory = ({data,isVisible,setShowIndex}) => {
+
+
+
   console.log('restauCat,', data);
-
-  const [isVisible,setIsVisible]=useState(true)
-
-  const handleClick=()=>{
-
-   setIsVisible(!isVisible)
-
-  }
-
 
 
   return (
@@ -20,7 +14,8 @@ const RestaurantCategory = ({data}) => {
         <h2 className="font-bold">
           {data.title} ({data.itemCards.length})
         </h2>
-        <svg onClick={handleClick}  
+        <svg
+             onClick={()=>setShowIndex()}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -36,8 +31,7 @@ const RestaurantCategory = ({data}) => {
         </svg>
       </div>
 
-   {isVisible?  <ItemList items={data.itemCards} />:null}
-    
+      {isVisible ? <ItemList items={data.itemCards} /> : null}
     </div>
   );
 }

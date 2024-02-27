@@ -11,6 +11,8 @@ const RestaurantDetail = () => {
   const { resId } = useParams();
 
 
+  const [showIndex,setShowIndex]=useState(null);
+
   console.log('render()');
   
   const restaurant = useRestaurant(resId);
@@ -55,9 +57,11 @@ const RestaurantDetail = () => {
             
         <div className='border-dotted border-t-gray-900 mt-2 mb-5'>
 
-          {categories?.map((category)=>
+          {categories?.map((category,index)=>
             
-           <RestaurantCategory data={category.card.card}/>
+            //Controlled component is this because it is saying isVisible or not
+
+           <RestaurantCategory data={category.card.card} isVisible={index===showIndex?true:false} setShowIndex={()=>setShowIndex((prevShowIndex)=>prevShowIndex===index?null:index)} />
 
           )}
         </div>
