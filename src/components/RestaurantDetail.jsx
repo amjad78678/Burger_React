@@ -1,71 +1,72 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,Suspense } from 'react';
 import React from 'react';
 
 import { IMG_CDN_URL } from '../config';
 import ShimmerUi from './ShimmerUi.jsx';
 import useRestaurant from '../utils/useRestaurant.jsx';
+import RestaurantCategory from './RestaurantCategory.jsx';
 
 const RestaurantDetail = () => {
   const { resId } = useParams();
 
+
+  console.log('render()');
+  
   const restaurant = useRestaurant(resId);
 
-  console.log('restaurant', restaurant);
+   if(restaurant===null) {
+    return (
+      <ShimmerUi/>
+    ) 
+   }
+
+   console.log('og', restaurant?.cards[2].card.card.info);
+   console.log('data',restaurant)
+
+   const { name, cuisines, city, id } = restaurant?.cards[2].card.card.info;
+
+     const categories =
+     restaurant?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+       (c) => 
+         (
+           c?.card?.card?.['@type'] ===
+           'type.googleapis.com/swiggy.presentation.food.v2.ItemCategory'
+         )
+       
+     );
+
+   console.log('category,', categories);
+   
   // //avoid rendering undefined component
   // if (!restaurant) return null;
 
-  return !restaurant ? (
-    <ShimmerUi />
-  ) : (
+  return (
     <div className="container mx-auto">
-      <div className="flex flex-wrap">
-        <br />
-        <br />
+      <div className="w-6/12  mx-auto">
+     
+       <div>
+        <h2 className='font-bold text-2xl py-12 mb-2'>{name}</h2>
+        <p className='text-lg font-bold text-gray-600'>{name}</p>
+        <p className='text-sm text-gray-500 pt-2'>{city}</p>
+        <p className='text-sm text-gray-500 '>{cuisines.join(',')}</p>
+         
+       </div>
+            
+        <div className='border-dotted border-t-gray-900 mt-2 mb-5'>
 
-        <div
-          key={restaurant.cards[2].card.card.info.id}
-          className="restaurant-detail"
-        >
-          <div className="p-10 mt-10 shadow-lg mb-12 text-center bg-pink-50 rounded-lg">
-            <img
-              className="w-1/2 mx-auto rounded-lg"
-              src={
-                IMG_CDN_URL +
-                restaurant.cards[2].card.card.info.cloudinaryImageId
-              }
-              alt=""
-            />
-          </div>
-          <div className="font-bold text-3xl ms-10">
-            <h1>{restaurant.cards[2].card.card.info.name}</h1>
-          </div>
-          <div className="mx-10 mt-5">
-            <h2>
-              Price : {restaurant.cards[2].card.card.info.costForTwoMessage}
-            </h2>
-            <h2>Place : {restaurant.cards[2].card.card.info.city}</h2>
-            <h2>Locality : {restaurant.cards[2].card.card.info.locality}</h2>
-            <h2> Rating : {restaurant.cards[2].card.card.info.avgRating}</h2>
-          </div>
-        </div>
+          {categories?.map((category)=>
+            
+           <RestaurantCategory data={category.card.card}/>
 
-        <div className="p-10">
-          <h2 className='mb-1'>Recommended 👇</h2>
-          {restaurant?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards?.map(
-            (rest, index) => {
-              return (
-                <React.Fragment key={rest.card.info.id}>
-                  <li>{rest.card.info.name}</li>
-                  <br />
-                </React.Fragment>
-              );
-            },
           )}
         </div>
+     
+
+        
       </div>
     </div>
   );
-};
+ }
 
 export default RestaurantDetail;
