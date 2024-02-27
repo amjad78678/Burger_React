@@ -1,14 +1,18 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { restaurantList } from "../config";
 import RestaurantCard,{withPromotedLabel} from "./RestaurantCard";
 import ShimmerUi from "./ShimmerUi";
 import { Link } from 'react-router-dom';
 import useIsOnline from '../utils/useIsOnline';
+import UserContext from '../utils/UserContext';
 
 
 
 const Body = () => {
+
+
+  const {loggedInUser,setUserName}=useContext(UserContext)
 
 
 const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
@@ -79,7 +83,7 @@ if(!allRestaurants) return null;
     <ShimmerUi />
   ) : ( 
     <>
-      <div className="search-container p-5 bg-pink-50 my-2 ">
+      <div className="search-container p-5 bg-pink-50 my-2">
         <input
           type="text"
           className="focus:bg-neutral-50 m-2 p-2"
@@ -104,6 +108,10 @@ if(!allRestaurants) return null;
         >
           Search
         </button>
+
+        <div>
+          <input className='border border-black my-10' type="text" value={loggedInUser} onChange={(e)=>setUserName(e.target.value)} />
+        </div>
       </div>
 
       {filteredRestaurants?.length == 0 ? (

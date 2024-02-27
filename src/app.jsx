@@ -1,4 +1,4 @@
-import React,{lazy,Suspense} from 'react';
+import React,{lazy,Suspense, useState,useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from './components/Header';
 import Body from './components/Body';
@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import Logout from './components/Logout';
 import ShimmerUi from './components/ShimmerUi';
+import UserContext from './utils/UserContext';
 
 
 // import Instamart from './components/Instamart';
@@ -25,12 +26,31 @@ const Instamart=lazy(()=>{
 
 
 const AppLayout = () => {
+
+  const [userName,setUserName]=useState('')
+
+    useEffect(() => {
+      //some api call to get the user Info
+
+      const data = {
+        loggedInUser: 'Mohammed amjad ali',
+      };
+
+      setUserName(data.loggedInUser);
+
+    }, []);
+
+  
+
+
   return (
-    <>
-      <Header />
-      <Outlet />
-      <Footer />
-    </>
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <>
+        <Header />
+        <Outlet />
+        <Footer />
+      </>
+    </UserContext.Provider>
   );
 };
 

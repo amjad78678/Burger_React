@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
+
+
 
     const Title = () => (
       <a href="/">
@@ -18,7 +21,13 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
 
+
+
+
+
   const [isLogged,setIsLogged]=useState(false)
+  const data = useContext(UserContext);
+
  
   return (
     <div className="flex justify-between bg-pink-50 shadow-xl">
@@ -45,12 +54,12 @@ const Header = () => {
       </div>
 
       {isLogged ? (
-        <button onClick={() => setIsLogged(false)}>
-          <Link to="/login">Login</Link>{' '}
+        <button className="p-5" onClick={() => setIsLogged(false)}>
+              {data.loggedInUser}
         </button>
       ) : (
-        <button onClick={() => setIsLogged(true)}>
-          <Link to="/logout">Logout</Link>
+        <button className="p-5" onClick={() => setIsLogged(true)}>
+          Logout
         </button>
       )}
     </div>
