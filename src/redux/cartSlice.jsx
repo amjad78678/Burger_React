@@ -5,7 +5,7 @@ const cartSlice = createSlice({
       initialState:{
         items:[]
       },
-      reducers:{
+      reducers:{  
 
         //the addItem is the dispatching action 
 
