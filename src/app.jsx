@@ -14,7 +14,8 @@ import Profile from './components/Profile';
 import Logout from './components/Logout';
 import ShimmerUi from './components/ShimmerUi';
 import UserContext from './utils/UserContext';
-
+import { Provider } from 'react-redux';
+import appStore from './redux/appStore';
 
 // import Instamart from './components/Instamart';
 
@@ -44,13 +45,15 @@ const AppLayout = () => {
 
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <>
-        <Header />
-        <Outlet />
-        <Footer />
-      </>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <>
+          <Header />
+          <Outlet />
+          <Footer />
+        </>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 

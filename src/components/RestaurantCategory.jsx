@@ -5,7 +5,6 @@ const RestaurantCategory = ({data,isVisible,setShowIndex}) => {
 
 
 
-  console.log('restauCat,', data);
 
 
   return (
