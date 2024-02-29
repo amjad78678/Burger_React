@@ -23,11 +23,10 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
 
     function filterData(searchText,allRestaurants) {
   
-      console.log('iam search tesxt',searchText)
       if(searchText==''){
         return allRestaurants;
       }else{
-  console.log('in filterdata block');
+        
   let filterData = allRestaurants.filter((restaurant) =>
     restaurant?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
   );
@@ -59,7 +58,6 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
   }
    
 
-  console.log('restuarants',filteredRestaurants)
   
 
 useEffect(() => { 
